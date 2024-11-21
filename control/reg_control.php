@@ -1,46 +1,71 @@
 <?php
-if (isset($_POST['first_name'])) {
-    $first_name = $_POST['first_name'];
-    if (strlen($first_name) > 40) {
+$hasError = true;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if (isset($_REQUEST['first_name']) && strlen($_REQUEST['first_name']) > 40) {
         echo "First Name should be a maximum of 40 characters.<br>";
+        $hasError = false;
     }
-}
 
-if (isset($_POST['last_name'])) {
-    $last_name = $_POST['last_name'];
-    if (strlen($last_name) > 40) {
+    if (isset($_REQUEST['last_name']) && strlen($_REQUEST['last_name']) > 40) {
         echo "Last Name should be a maximum of 40 characters.<br>";
+        $hasError = false;
     }
-}
 
-if (isset($_POST['password'])) {
-    $password = $_POST['password'];
-    if (strlen($password) < 6 || !preg_match('/[a-z]/', $password)) {
+    if (isset($_REQUEST['password']) && (strlen($_REQUEST['password']) < 6 || !preg_match('/[a-z]/', $_REQUEST['password']))) {
         echo "Password must be at least 6 characters long and contain at least one lowercase letter.<br>";
+        $hasError = false;
     }
-}
-if (isset($_POST['confirm_password'])) {
-    $confirm_password = $_POST['confirm_password'];
-    if ($confirm_password !== $_POST['password']) {
-        echo "Re-entered password does not match the original password.<br>";
+
+    if (!isset($_REQUEST['gender'])) {
+        echo "Please select a gender.<br>";
+        $hasError = false;
     }
-}
 
-if (!isset($_POST['gender'])) {
-    echo "Please select a gender.<br>";
-}
-
-if (isset($_POST['phone'])) {
-    $phone = $_POST['phone'];
-    if (!preg_match('/^0[0-9]{10}$/', $phone)) {
+    if (isset($_REQUEST['phone']) && !preg_match('/^0[0-9]{10}$/', $_REQUEST['phone'])) {
         echo "Phone number must start with 0 and be exactly 11 digits.<br>";
+        $hasError = false;
     }
-}
 
-if (isset($_POST['first_name'], $_POST['last_name'], $_POST['password'], $_POST['gender'], $_POST['phone']) &&
-    strlen($_POST['first_name']) <= 40 && strlen($_POST['last_name']) <= 40 &&
-    strlen($_POST['password']) >= 6 && preg_match('/[a-z]/', $_POST['password']) &&
-    preg_match('/^0[0-9]{10}$/', $_POST['phone'])) {
-    echo "All inputs are valid!<br>";
+    if ($hasError) {
+        echo "All inputs are valid!<br>";
+
+        $data = [
+            "first_name" => $_REQUEST['first_name'],
+            "last_name" => $_REQUEST['last_name'],
+            "email" => $_REQUEST['email'],
+            "phone" => $_REQUEST['phone'],
+            "dob" => $_REQUEST['dob'],
+            "gender" => $_REQUEST['gender'],
+            "password" => $_REQUEST['password'],
+            "street" => $_REQUEST['street'],
+            "city" => $_REQUEST['city'],
+            "postal_code" => $_REQUEST['postal_code'],
+            "country" => $_REQUEST['country']
+        ];
+
+        $filePath = "../data/userdata.json";
+        
+        if (file_exists($filePath) && filesize($filePath) > 0) {
+            $existingData = json_decode(file_get_contents($filePath), true);
+            if (!is_array($existingData)) {
+                $existingData = [];
+            }
+        } else {
+            $existingData = [];
+        }
+
+        $existingData[] = $data;
+
+        $json = json_encode($existingData);
+
+        if (file_put_contents($filePath, $json)) {
+            echo "User data successfully saved.<br>";
+        } else {
+            echo "Failed to save user data.<br>";
+        }
+    
+    }
 }
 ?>

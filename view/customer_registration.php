@@ -1,10 +1,15 @@
+<?php
+require '../control/reg_control.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Customer Registration</title>
 </head>
 <body>
-    <form action="../control/reg_control.php" method="POST">
+    <form action="" method="POST">
         <fieldset>
             <h1>Customer Registration</h1>
             <fieldset>
