@@ -1,4 +1,5 @@
 <?php
+session_start();
 $hasError = true;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -29,43 +30,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($hasError) {
-        echo "All inputs are valid!<br>";
+        //echo "All inputs are valid!<br>";
 
-        $data = [
-            "first_name" => $_REQUEST['first_name'],
-            "last_name" => $_REQUEST['last_name'],
-            "email" => $_REQUEST['email'],
-            "phone" => $_REQUEST['phone'],
-            "dob" => $_REQUEST['dob'],
-            "gender" => $_REQUEST['gender'],
-            "password" => $_REQUEST['password'],
-            "street" => $_REQUEST['street'],
-            "city" => $_REQUEST['city'],
-            "postal_code" => $_REQUEST['postal_code'],
-            "country" => $_REQUEST['country']
-        ];
+        // $data = [
+        //     "first_name" => $_REQUEST['first_name'],
+        //     "last_name" => $_REQUEST['last_name'],
+        //     "email" => $_REQUEST['email'],
+        //     "phone" => $_REQUEST['phone'],
+        //     "dob" => $_REQUEST['dob'],
+        //     "gender" => $_REQUEST['gender'],
+        //     "password" => $_REQUEST['password'],
+        //     "street" => $_REQUEST['street'],
+        //     "city" => $_REQUEST['city'],
+        //     "postal_code" => $_REQUEST['postal_code'],
+        //     "country" => $_REQUEST['country']
+        // ];
 
-        $filePath = "../data/userdata.json";
+        // $filePath = "../data/userdata.json";
         
-        if (file_exists($filePath) && filesize($filePath) > 0) {
-            $existingData = json_decode(file_get_contents($filePath), true);
-            if (!is_array($existingData)) {
-                $existingData = [];
-            }
-        } else {
-            $existingData = [];
-        }
+        // if (file_exists($filePath) && filesize($filePath) > 0) {
+        //     $existingData = json_decode(file_get_contents($filePath), true);
+        //     if (!is_array($existingData)) {
+        //         $existingData = [];
+        //     }
+        // } else {
+        //     $existingData = [];
+        // }
 
-        $existingData[] = $data;
+        // $existingData[] = $data;
 
-        $json = json_encode($existingData);
+        // $json = json_encode($existingData);
 
-        if (file_put_contents($filePath, $json)) {
-            echo "User data successfully saved.<br>";
-        } else {
-            echo "Failed to save user data.<br>";
-        }
-    
+        // if (file_put_contents($filePath, $json)) {
+        //     echo "User data successfully saved.<br>";
+        // } else {
+        //     echo "Failed to save user data.<br>";
+        // }
+        
+        $_SESSION["first_name"]=$_REQUEST['first_name'];
+        $_SESSION["password"]=$_REQUEST["password"];
+        header("Location: ../view/profile.php");
     }
 }
 ?>
