@@ -7,6 +7,7 @@ require '../control/reg_control.php';
 <html lang="en">
 <head>
     <title>Customer Registration</title>
+    <link rel="stylesheet" href="../css/mystyle.css">
 </head>
 <body>
     <form action="" method="POST">
@@ -112,8 +113,8 @@ require '../control/reg_control.php';
                 <br>
                 <table>
                     <tr>
-                        <td><input type="submit" value="Submit"></td>
-                        <td><input type="reset" value="Clear Form"></td>
+                        <td><input type="submit" value="Submit"class="button"></td>
+                        <td><input type="reset" value="Clear Form"class="buttonr"></td>
                     </tr>
                 </table>
             </fieldset>
