@@ -54,7 +54,7 @@ table th {
     background-color: #4CAF50;   
     color: white;                 
     font-weight: bold;            
-
+}
 table tr:nth-child(even) {
     background-color: #f2f2f2;    
 }

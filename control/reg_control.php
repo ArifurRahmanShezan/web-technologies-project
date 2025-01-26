@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $_SESSION["first_name"]=$_REQUEST['first_name'];
         $_SESSION["password"]=$_REQUEST["password"];
-        header("Location: ../view/profile.php");
+        header("Location: ../view/login.php");
     }
 }
 ?>

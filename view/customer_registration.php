@@ -7,10 +7,11 @@ require '../control/reg_control.php';
 <html lang="en">
 <head>
     <title>Customer Registration</title>
-    <link rel="stylesheet" href="../css/mystyle.css">
+    <!--<link rel="stylesheet" href="../css/mystyle.css">-->
+    <script src="../js/myscript.js"></script>
 </head>
 <body>
-    <form action="" method="POST">
+    <form action="" method="POST" onsubmit="return validateForm();">
         <fieldset>
             <h1>Customer Registration</h1>
             <fieldset>
@@ -34,21 +35,23 @@ require '../control/reg_control.php';
                     </tr>
                     <tr>
                         <td>Date of Birth</td>
-                        <td><input type="date" name="dob"></td>
+                        <td><input type="date" name="dob"id="dob">
+                        <span id="ageError"></span></td>
                     </tr>
                     <tr>
-                        <td>Gender</td>
-                        <td>
-                            <label>
-                                <input type="radio" name="gender" value="male"> Male
-                            </label>
-                            <label>
-                                <input type="radio" name="gender" value="female"> Female
-                            </label>
-                            <label>
-                                <input type="radio" name="gender" value="others"> Others
-                            </label>
-                        </td>
+                         <td>Gender</td>
+                         <td>
+    <label>
+        <input type="radio" name="gender" value="male"> Male
+    </label>
+    <label>
+        <input type="radio" name="gender" value="female"> Female
+    </label>
+    <label>
+        <input type="radio" name="gender" value="others"> Others
+    </label>
+    <span id="genderError"></span>
+</td>
                     </tr>
                     <tr>
                         <td>Profile Picture</td>
@@ -64,15 +67,18 @@ require '../control/reg_control.php';
                     </tr>
                     <tr>
                         <td>Street</td>
-                        <td><textarea name="street" id="street" rows="1" cols="20" placeholder="Enter your street address"></textarea></td>
+                        <td><textarea name="street" id="street" rows="1" cols="20" placeholder="Enter your street address"></textarea>
+                        <span id="addressError"></span></td>
                     </tr>
                     <tr>
                         <td>City</td>
                         <td><input type="text" name="city" id="city" placeholder="Enter your city"></td>
                     </tr>
                     <tr>
-                        <td>Postal Code</td>
-                        <td><input type="number" name="postal_code" placeholder="Enter your postal code"></td>
+                        <td>Zip code</td>
+                        <td><input type="number" name="postal_code"id="postal_code" placeholder="Enter your postal code">
+                        <span id="zipError"></span></td>
+                    
                     </tr>
                     <tr>
                         <td>Country</td>
@@ -113,7 +119,8 @@ require '../control/reg_control.php';
                 <br>
                 <table>
                     <tr>
-                        <td><input type="submit" value="Submit"class="button"></td>
+                        <!--<td><input type="submit" value="Submit"class="button"></td>-->
+                        <td><button type="submit">Submit</button></td>
                         <td><input type="reset" value="Clear Form"class="buttonr"></td>
                     </tr>
                 </table>

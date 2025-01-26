@@ -1,5 +1,5 @@
 <?php
-
+$conn=new mysqli("localhost","root","","user");
 class myDB {
     
     //open connection

@@ -32,7 +32,7 @@ if (isset($_GET['view_all'])) {
 <html>
     <head>
         <title>Product Dashboard</title>
-        <link rel="stylesheet" href="../css/mystyle.css">
+        <!--<link rel="stylesheet" href="../css/mystyle.css"-->
     </head>
     <body>
         <h1>Welcome, <?php echo $_SESSION["first_name"]; ?>!</h1>
