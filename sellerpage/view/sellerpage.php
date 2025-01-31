@@ -1,20 +1,19 @@
 <?php
 require '../control/reg_control.php';
+
 ?>
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <title>Seller Registration Page</title>
-    <link rel="stylesheet" type="text/css" href="../css/mystyle.css">
-
+    <link rel="stylesheet" type="text/css" href="/sellerpage/css/mystyle.css">
 </head>
 <body>
-    <form action="" method="POST"  onsubmit="return checkUname()">
+    <form action="" method="POST" onsubmit="return checkUname() && validateForm();">
         <fieldset>
-        <div class="logo-container">
-                <img src="../images/file.png" alt="AutoFleet Logo" class="logo">
+            <div class="logo-container">
+                <img src="/sellerpage/images/file.png" alt="AutoFleet Logo" class="logo">
             </div>
             <h2>Seller Registration Page</h2>
             
@@ -22,17 +21,19 @@ require '../control/reg_control.php';
                 <legend>Personal Information</legend>
                 <table>
                     <tr>
-                    <td id="para1">Your Name:</td>
-                    <td><input type="text" name="name" id= "uname" placeholder="Your Name"></td>
-                    <td><p span id = "error"></p></td></tr> 
+                        <td id="para1">Your Name:</td>
+                        <td><input type="text" name="name" id="uname" placeholder="Your Name"></td>
+                        <td><span id="error" class="error"></span></td>
                     </tr>
                     <tr>
                         <td id="para1">Email:</td>
                         <td><input type="email" name="email" placeholder="Email"></td>
+                        <td><span id="emailError" class="error"></span></td>
                     </tr>
                     <tr>
                         <td id="para1">Phone Number:</td>
-                        <td><input type="tel" name="phone" placeholder="Phone Number"></td>
+                        <td><input type="tel" id="phone" name="phone" placeholder="Phone Number"></td>
+                        <td><span id="phoneError" class="error"></span></td>
                     </tr>
                     <tr>
                         <td>Permanent Address:</td>
@@ -45,10 +46,12 @@ require '../control/reg_control.php';
                             <input type="radio" name="gender" value="female"> Female
                             <input type="radio" name="gender" value="other"> Other
                         </td>
+                        <td><span id="genderError" class="error"></span></td>
                     </tr>
                     <tr>
                         <td id="para1">Password:</td>
                         <td><input type="password" name="password" placeholder="Password"></td>
+                        <td><span id="passwordError" class="error"></span></td>
                     </tr>
                     <tr>
                         <td id="para1">Re-enter password:</td>
@@ -75,13 +78,14 @@ require '../control/reg_control.php';
                     <tr>
                         <td id="para1">Business Type:</td>
                         <td>
-                            <select name="business_type">
+                            <select id="business_type" name="business_type">
                                 <option value="">Select Business Type</option>
                                 <option value="Private Limited Company">Private Limited Company</option>
                                 <option value="Industrialist">Industrialist</option>
                                 <option value="Corporation">Corporation</option>
                             </select>
                         </td>
+                        <td><span id="businessTypeError" class="error"></span></td>
                     </tr>
                     <tr>
                         <td>Tax ID/TIN No:</td>
@@ -99,7 +103,8 @@ require '../control/reg_control.php';
                     </tr>
                     <tr>
                         <td>Bank Account Number:</td>
-                        <td><input type="text" name="account_number" placeholder="Account Number"></td>
+                        <td><input type="text" id="account_number" name="account_number" placeholder="Account Number"></td>
+                        <td><span id="accountError" class="error"></span></td>
                     </tr>
                     <tr>
                         <td>Credit Card Number:</td>
@@ -136,8 +141,8 @@ require '../control/reg_control.php';
 
             <table>
                 <tr>
-                    <td><input type="submit" value="Register" class ="btnpurple"></td>
-                    <td><input type="reset" value="Clear Form"class ="btnregister"></td>
+                    <td><input type="submit" value="Register" class="btnpurple"></td>
+                    <td><input type="reset" value="Clear Form" class="btnregister"></td>
                 </tr>
             </table>
         </fieldset>

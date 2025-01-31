@@ -85,7 +85,7 @@ $result = $mydb->showProduct($connectionObject);
         <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $imagePath = "../product/" . $row["pr_id"] . ".jpg";
+                $imagePath = "../sellerpage//product/" . $row["pr_id"] . ".jpg";
                 echo "<div class='product-card'>
                         <img src='$imagePath' alt='Product Image'>
                         <h4>{$row['p_name']}</h4>
