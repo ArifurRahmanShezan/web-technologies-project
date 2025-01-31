@@ -27,7 +27,8 @@ require '../control/reg_control.php';
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td><input type="email" name="email" placeholder="Enter your email"></td>
+                        <td><input type="email" name="email" id= "email" placeholder="Enter your email" oninput="checkUserEmail()"><br>
+                        <span id="check-email" class="error"></span></td>
                     </tr>
                     <tr>
                         <td>Phone</td>
@@ -126,12 +127,13 @@ require '../control/reg_control.php';
                 <table>
                     <tr>
                         <!--<td><input type="submit" value="Submit"class="button"></td>-->
-                        <td><button type="submit">Submit</button></td>
+                        <td><button type="submit" id = "submit">Submit</button></td>
                         <td><input type="reset" value="Clear Form"class="buttonr"></td>
                     </tr>
                 </table>
             </fieldset>
         </fieldset>
     </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
