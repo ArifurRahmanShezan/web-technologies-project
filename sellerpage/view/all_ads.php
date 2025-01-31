@@ -32,7 +32,7 @@ $conn->close();
 <html>
 <head>
     <title>All Ads</title>
-    <link rel="stylesheet" type="text/css" href="/sellerpage/css/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="../../../sellerpage/css/mystyle.css">
 
 </head>
 <body>
@@ -59,7 +59,7 @@ $conn->close();
                         }
                     }
                     ?>
-                   <img src="<?php echo '/sellerpage/product/' . htmlspecialchars($ad['pr_id']) . '.jpg'; ?>" alt="Ad Image">
+                   <img src="<?php echo '../../../sellerpage/product/' . htmlspecialchars($ad['pr_id']) . '.jpg'; ?>" alt="Ad Image">
 
                 </div>
                 <div class="ad-details">
