@@ -1,31 +1,32 @@
 <?php
-include '../model/db.php';
 session_start();
+
+// Include the database class
+include '../model/db.php';
+
+// Initialize the myDB class
+$mydb = new myDB();
+$connectionObject = $mydb->openCon();
 
 // Initialize variables
 $message = [];
-
 
 if (isset($_POST['submit'])) {
     // Retrieve and sanitize the email input
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     echo $email;
 
-    // Check if the email exists for a customer in the database
+    // Use the showProduct method of myDB class to fetch data
     $sql = "SELECT * FROM `customer` WHERE c_email = '$email'";
-    $result = mysqli_query($conn, $sql);
+    $result = $connectionObject->query($sql);
 
-    if ($result && mysqli_num_rows($result) > 0) 
-    {
+    if ($result && mysqli_num_rows($result) > 0) {
         $_SESSION['email'] = $email;
         header('location:change_password.php');
-    }
-    else 
+    } else {
         echo "No account associated with this email. Please check your email address.";
-    
+    }
 }
-
-
 
 ?>
 
@@ -45,16 +46,12 @@ if (isset($_POST['submit'])) {
             <div class="title">
                 <h1>Forgot Password</h1>
                 <p>Follow the steps to reset your password.</p>
-                
             </div>
             <form action=""method="POST">
-            <input type="text" name="email" placeholder="enter your email">
-            <input type="submit" name="submit" value="Submit">
+                <input type="text" name="email" placeholder="enter your email">
+                <input type="submit" name="submit" value="Submit">
             </form>
-            
-
         </section>
     </div>
-    
 </body>
 </html>

@@ -1,6 +1,10 @@
 <?php
 session_start();
 require '../model/db.php';
+
+$db = new myDB();
+$conn = $db->openCon();
+
 // Assuming customer is logged in and session stores c_id
 $c_id = $_SESSION['email'] ?? null;
 
@@ -8,10 +12,10 @@ if (!$c_id) {
     die("Unauthorized access. Please log in.");
 }
 
-// Fetch current password from the database
+// Fetch current password from the database using OOP approach
 $sql = "SELECT c_password FROM customer WHERE c_email = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $c_id);
+$stmt->bind_param("s", $c_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $customer = $result->fetch_assoc();
@@ -35,15 +39,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errors[] = "New password and confirm password do not match.";
     } elseif ($current_password === $new_password) {
         $errors[] = "New password must be different from the current password.";
-    } elseif ($current_password!== $customer['c_password']) {
+    } elseif ($current_password !== $customer['c_password']) {
         $errors[] = "Current password is incorrect.";
     }
 
     // Update password if no errors
     if (empty($errors)) {
-        $update_sql = "UPDATE customer SET c_password=? WHERE c_id=?";
+        $update_sql = "UPDATE customer SET c_password=? WHERE c_email=?";
         $update_stmt = $conn->prepare($update_sql);
-        $update_stmt->bind_param("si", $new_password, $c_id);
+        $update_stmt->bind_param("ss", $new_password, $c_id);
 
         if ($update_stmt->execute()) {
             $success = "Password updated successfully!";
@@ -55,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-$conn->close();
+$db->closeCon($conn);
 ?>
 
 <!DOCTYPE html>
@@ -64,59 +68,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Change Password</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 40%;
-            margin: 50px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background: #007bff;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            border-radius: 5px;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-        .error {
-            color: red;
-            margin-bottom: 10px;
-        }
-        .success {
-            color: green;
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/mystyle.css">
     <script src="../js/myscript.js"></script>
 </head>
 <body>
@@ -134,7 +86,7 @@ $conn->close();
         <div class="success"><?php echo $success; ?></div>
     <?php endif; ?>
 
-    <form method="POST" action="" onsubmit="return validatePasswords();">
+    <form method="POST" action="" id="changePasswordForm">
         <div class="form-group">
             <label>Current Password:</label>
             <input type="password" name="current_password" required>
@@ -152,6 +104,7 @@ $conn->close();
         <a href="profile.php">Back</a>
     </form>
 </div>
+
 
 </body>
 </html>

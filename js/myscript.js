@@ -119,6 +119,36 @@ function validatePasswords() {
     errorMessage.innerHTML = "";
     return true;
 }
+function validatePassword() {
+    var currentPassword = document.getElementsByName("current_password")[0].value;
+    var newPassword = document.getElementById("new_password").value;
+    var confirmPassword = document.getElementById("confirm_password").value;
+    var errorMessage = document.getElementById("error_message");
+
+    // Reset error message
+    errorMessage.innerHTML = "";
+
+    // Validate current password
+    if (currentPassword === "" || newPassword === "" || confirmPassword === "") {
+        errorMessage.innerHTML = "All fields are required.";
+        return false;
+    }
+
+    // Validate password matching
+    if (newPassword !== confirmPassword) {
+        errorMessage.innerHTML = "New password and confirm password do not match.";
+        return false;
+    }
+
+    // Validate if new password is different from the current one
+    if (currentPassword === newPassword) {
+        errorMessage.innerHTML = "New password must be different from the current password.";
+        return false;
+    }
+
+    return true;
+}
+
 
 
 

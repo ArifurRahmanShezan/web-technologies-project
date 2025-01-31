@@ -1,5 +1,6 @@
 <?php
-include '../model/db.php';
+include '../model/db.php';  // Including the db.php file with the myDB class
+
 session_start();
 
 if (isset($_POST['submit'])) {
@@ -7,8 +8,11 @@ if (isset($_POST['submit'])) {
     $new_password = filter_var($_POST['new_password'], FILTER_SANITIZE_STRING);
     $confirm_password = filter_var($_POST['confirm_password'], FILTER_SANITIZE_STRING);
 
-    // Ensure database connection
-   
+    // Instantiate the Database class
+    $db = new myDB();
+
+    // Open the database connection
+    $connectionObject = $db->openCon();
 
     // Check if passwords match
     if ($new_password !== $confirm_password) {
@@ -24,8 +28,8 @@ if (isset($_POST['submit'])) {
 
     $email = $_SESSION['email'];
 
-    // Retrieve user data
-    $select_user = $conn->prepare("SELECT * FROM `customer` WHERE c_email = ?");
+    // Retrieve user data from the database
+    $select_user = $connectionObject->prepare("SELECT * FROM `customer` WHERE c_email = ?");
     $select_user->bind_param("s", $email);
     $select_user->execute();
     $result = $select_user->get_result();
@@ -34,14 +38,13 @@ if (isset($_POST['submit'])) {
         $row = $result->fetch_assoc();
 
         // Verify new password is not the same as the current password
-        if ($new_password== $row['c_password']) {
+        if ($new_password == $row['c_password']) {
             echo "New password cannot be the same as the old password. Please try again.";
             exit();
         }
 
-
-        // Update the password
-        $update_password = $conn->prepare("UPDATE `customer` SET c_password = ? WHERE c_email = ?");
+        // Update the password in the database
+        $update_password = $connectionObject->prepare("UPDATE `customer` SET c_password = ? WHERE c_email = ?");
         $update_password->bind_param("ss", $new_password, $email);
         $update_password->execute();
 
@@ -54,8 +57,12 @@ if (isset($_POST['submit'])) {
         echo "No user found. Please try again.";
         exit();
     }
+
+    // Close the database connection
+    $db->closeCon($connectionObject);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,10 +71,14 @@ if (isset($_POST['submit'])) {
     <title>Reset Password</title>
 </head>
 <body>
+
+    <h2>Reset Password</h2>
+
     <form action="" method="POST">
-        <input type="password" name="new_password" placeholder="Enter New Password" required>
-        <input type="password" name="confirm_password" placeholder="Confirm New Password" required>
+        <input type="password" name="new_password" placeholder="Enter New Password" >
+        <input type="password" name="confirm_password" placeholder="Confirm New Password" >
         <input type="submit" name="submit" value="Submit">
     </form>
+
 </body>
 </html>

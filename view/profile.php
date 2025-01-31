@@ -2,16 +2,23 @@
 session_start();
 require '../model/db.php';
 
+// Create an instance of the myDB class
+$db = new myDB();
+
+// Open the database connection
+$conn = $db->openCon();
+
+// Get customer ID from session
 $c_id = $_SESSION['email'] ?? null;
 
 if (!$c_id) {
     die("Unauthorized access. Please log in.");
 }
 
-// Fetch customer data
+// Fetch customer data using the myDB class
 $sql = "SELECT c_first_name, c_last_name, c_phone, c_email, c_street FROM customer WHERE c_email = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $c_id); // Changed from "i" to "s" because email is a string
+$stmt->bind_param("s", $c_id); // Bind the customer email
 $stmt->execute();
 $result = $stmt->get_result();
 $customer = $result->fetch_assoc();
@@ -51,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Update customer details if no errors
     if (empty($errors)) {
+        // Use the myDB method to update customer details
         $update_sql = "UPDATE customer SET c_first_name=?, c_last_name=?, c_phone=?, c_email=?, c_street=? WHERE c_email=?";
         $update_stmt = $conn->prepare($update_sql);
         $update_stmt->bind_param("ssssss", $first_name, $last_name, $phone, $email, $address, $c_id);
@@ -65,8 +73,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// Close connection
-$conn->close();
+// Close the database connection
+$db->closeCon($conn);
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +83,6 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Profile</title>
-    <!--<link rel="stylesheet" href="../css/mystyle.css">-->
 </head>
 <body>
 
