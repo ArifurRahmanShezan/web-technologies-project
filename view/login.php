@@ -85,6 +85,63 @@ if($_POST['user_type']==="customer"){
     }
 }
 else if($_POST['user_type']==="seller"){
+    $sql = "SELECT * FROM `seller` WHERE s_email = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if ($stmt === false) {
+        $message[] = 'SQL preparation failed: ' . mysqli_error($conn);
+        echo 'SQL preparation failed: ' . mysqli_error($conn);
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($result === false) {
+        $message[] = 'Query execution failed: ' . mysqli_error($conn);
+        echo 'Query execution failed: ' . mysqli_error($conn);
+    }
+
+    // Fetch user data
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+    // Debug: Check if user exists
+    if ($row) {
+        error_log("User found: " . print_r($row, true));
+
+        // Compare password directly
+        if ($pass == $row['s_password']) {
+            // Password is correct
+            $_SESSION["email"] = $email;
+            $_SESSION["id"] = $row['s_id'];
+
+            // Optionally, set the session expiration
+            $_SESSION['login_time'] = time(); // Current time for expiration check
+           
+            // Set a cookie if "Remember Me" is checked
+            if (isset($_POST['remember_me'])) {
+                setcookie("user_email", $email, time() + (86400 * 30), "/", "", true, true); // Secure and HttpOnly flags
+            } else {
+                if (isset($_COOKIE['user_email'])) {
+                    setcookie("user_email", "", time() - 3600, "/", "", true, true); // Delete cookie if "Remember Me" is unchecked
+                }
+            }
+
+            // Debug: Check if cookie is set
+            error_log("Cookie set for user email: $email");
+
+        // Redirect to profile page
+        header('Location: ../sellerpage/view//profile.php');
+        exit;
+
+        } else {
+            // Invalid password
+            echo 'Invalid email or password. Please try again.';
+        }
+    } else {
+        // No user found with that email
+        echo 'No user found with that email. Please register.';
+    }
 
 }
 else if($_POST['user_type']==="employee"){
