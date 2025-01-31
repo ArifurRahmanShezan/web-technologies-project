@@ -53,6 +53,74 @@ function validateZIP() {
 }
 
 
+function fetchProducts(queryType, queryValue) {
+    $.ajax({
+        url: "../control/fetch_product.php",
+        type: "GET",
+        data: { type: queryType, value: queryValue },
+        success: function(response) {
+            console.log(response);  // Log the response
+            $("#product-list").html(response);
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX Error: " + status + " - " + error);
+        }
+    });
+}
+
+
+$(document).ready(function(){
+    $("#searchAll").click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: "../control/fetch_product.php",
+            type: "GET",
+            success: function(response){
+                $("#productList").html(response);
+            }
+        });
+    });
+    $("#searchById").click(function(e){
+        e.preventDefault();
+        let pr_id = $("#pr_id").val();
+        $.ajax({
+            url: "../control/fetch_product.php",
+            type: "GET",
+            data: { pr_id: pr_id },
+            success: function(response){
+                $("#productList").html(response);
+            }
+        });
+    });
+
+    $("#searchByName").click(function(e){
+        e.preventDefault();
+        let p_name = $("#p_name").val();
+        $.ajax({
+            url: "../control/fetch_product.php",
+            type: "GET",
+            data: { p_name: p_name },
+            success: function(response){
+                $("#productList").html(response);
+            }
+        });
+    });
+});
+
+function validatePasswords() {
+    var newPassword = document.getElementById("new_password").value;
+    var confirmPassword = document.getElementById("confirm_password").value;
+    var errorMessage = document.getElementById("error_message");
+
+    if (newPassword !== confirmPassword) {
+        errorMessage.innerHTML = "New password and confirm password do not match.";
+        return false;
+    }
+    errorMessage.innerHTML = "";
+    return true;
+}
+
+
 
 /*document.addEventListener("DOMContentLoaded", function () {
     var form = document.querySelector("form");

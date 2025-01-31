@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         else{
             echo"failed to store";
         }
-        $_SESSION["first_name"]=$_REQUEST['first_name'];
+        $_SESSION["email"]=$_REQUEST['email'];
         $_SESSION["password"]=$_REQUEST["password"];
         header("Location: ../view/login.php");
     }

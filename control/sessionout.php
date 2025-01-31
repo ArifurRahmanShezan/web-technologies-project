@@ -1,6 +1,10 @@
 <?php
 session_start();
-if(session_destroy()){
-    header("Location: ../view/customer_registration.php");
-}
+session_unset();  // Unset all session variables
+session_destroy(); // Destroy the session
+header("Location: ../view/login.php");  // Redirect to the login page
+exit;
+// if(session_destroy()){
+//     header("Location: ../view/login.php");
+// }
 ?>

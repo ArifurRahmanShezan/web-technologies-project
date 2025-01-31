@@ -1,70 +1,98 @@
 <?php
-require  '../model/db.php';
-session_start();
+
+session_start(); 
+
+require '../model/db.php';
+
 
 // Initialize variables
-$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 $message = [];
 
+// Handle login form submission
 if (isset($_POST['login'])) {
     // Retrieve and sanitize input
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $pass = filter_var($_POST['pass'], FILTER_SANITIZE_STRING);
 
-    // Check if email exists in the database
-    $sql = "SELECT * FROM `customer` WHERE c_email = '$email'";
-    $result = mysqli_query($conn, $sql);
+    // Validate email format
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $message[] = 'Invalid email format.';
+        echo 'Invalid email format.';
+    }
+
+    // Debug: Check if email and password are received properly
+    error_log("Received email: $email, password: $pass");
+if($_POST['user_type']==="customer"){
+
+
+    // Use prepared statements to prevent SQL injection
+    $sql = "SELECT * FROM `customer` WHERE c_email = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if ($stmt === false) {
+        $message[] = 'SQL preparation failed: ' . mysqli_error($conn);
+        echo 'SQL preparation failed: ' . mysqli_error($conn);
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($result === false) {
+        $message[] = 'Query execution failed: ' . mysqli_error($conn);
+        echo 'Query execution failed: ' . mysqli_error($conn);
+    }
+
+    // Fetch user data
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    $count = mysqli_num_rows($result);
 
-    // Check if user exists
-    if ($count > 0) 
-    {
-        // Encrypt the password and compare with the database
-        if ($pass== $row['c_password'])
-        {
-            $_SESSION['user_id'] = $row['c_id'];
-            $_SESSION['user_name'] = $row['c_name'];
-            $_SESSION['user_email'] = $row['c_email'];
-            //$_SESSION['user_type'] = $row['c_user_type'];
+    // Debug: Check if user exists
+    if ($row) {
+        error_log("User found: " . print_r($row, true));
 
+        // Compare password directly
+        if ($pass == $row['c_password']) {
+            // Password is correct
+            $_SESSION["email"] = $email;
+            $_SESSION["id"] = $row['c_id'];
+
+            // Optionally, set the session expiration
+            $_SESSION['login_time'] = time(); // Current time for expiration check
+           
             // Set a cookie if "Remember Me" is checked
-            if (isset($_POST['remember_me'])) 
-                setcookie("user_email", $email, time() + (86400 * 30), "/"); // Cookie expires in 1 month
-            else {
-                // Delete the cookie if "Remember Me" is unchecked
-                if (isset($_COOKIE['user_email'])) 
-                    setcookie("user_email", "", time() - 3600, "/");
-                
+            if (isset($_POST['remember_me'])) {
+                setcookie("user_email", $email, time() + (86400 * 30), "/", "", true, true); // Secure and HttpOnly flags
+            } else {
+                if (isset($_COOKIE['user_email'])) {
+                    setcookie("user_email", "", time() - 3600, "/", "", true, true); // Delete cookie if "Remember Me" is unchecked
+                }
             }
 
-header('location: profile.php');
-exit();
-            // Redirect based on User Type
-            // if (trim($row['user_type']) == "Admin") 
-            // {
-            //     $succcess_msg[] = 'Admin login successful';
-            //     header('Location: admin/dashboard.php');
-            //     exit();
-            // } 
-            // else if (trim($row['user_type']) == "Customer") 
-        //     {
-        //         $succcess_msg[] = 'Customer login successful';
-        //         header('Location: home.php');
-        //         exit();
-        //     } 
-        //     else 
-        //         $error_msg[] = 'Invalid user type. Please contact support';
-        // 
-        } 
-        else 
-            // No matching password found
-            $error_msg[] = 'Invalid email or password. Please try again';
-    }
-    else 
+            // Debug: Check if cookie is set
+            error_log("Cookie set for user email: $email");
+
+        // Redirect to profile page
+        header('Location: dashboard.php');
+        exit;
+
+        } else {
+            // Invalid password
+            echo 'Invalid email or password. Please try again.';
+        }
+    } else {
         // No user found with that email
-        $error_msg[] = 'No user found with that email. Please register';
-        
+        echo 'No user found with that email. Please register.';
+    }
+}
+else if($_POST['user_type']==="seller"){
+
+}
+else if($_POST['user_type']==="employee"){
+    
+}
+else if($_POST['user_type']==="admin"){
+    
+}
 }
 ?>
 
@@ -74,45 +102,46 @@ exit();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Tea - Login</title>
-    <style type="text/css">
-        <?php include 'style.css'; ?>
-    </style>
+    <title>Login</title>
 </head>
 <body>
     <div class="form-container">
         <section class="form-container">
             <div class="title">
-                <a href="home.php">
-                    <img src="assets/image/logo.jpg" alt="Logo">
-                </a>
                 <h1>Login Now</h1>
                 <p>Login here if you're already a part of us!</p>
             </div>
-            <form action = "" method = "post">
+            <form action="" method="post">
+            <div class="input-field">
+    <p>User Type</p>
+    <select name="user_type" required>
+        <option value="" disabled selected>Select your user type</option>
+        <option value="customer">Customer</option>
+        <option value="employee">Employee</option>
+        <option value="seller">Seller</option>
+        <option value="admin">Admin</option>
+    </select>
+</div>
+
                 <div class="input-field">
                     <p>Email</p>
-                    <input type = "text" name = "email" placeholder = "Enter your email" maxlength = "50" value="<?php echo isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : ''; ?>" required>
+                    <input type="text" name="email" placeholder="Enter your email" maxlength="50" value="<?php echo isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : ''; ?>" required>
                 </div>
                 <div class="input-field">
                     <p>Password</p>
-                    <input type = "password" name = "pass" placeholder ="Enter the password" maxlength = "50" required>
+                    <input type="password" name="pass" placeholder="Enter the password" maxlength="50" required>
                     <a href="forget_password.php" style="display: block; margin-top: 10px; font-size: 0.800em; text-align: left;">Forgot Password?</a>
                 </div>
-                <input type = "submit" name = "login" value = "Login" class="btn">
+                <input type="submit" name="login" value="Login">
                 <div class="check-box">
-                    <label class="custom-checkbox">
+                    <label>
                         <span>Remember Me</span>
                         <input type="checkbox" name="remember_me" <?php echo isset($_COOKIE['user_email']) ? 'checked' : ''; ?>>
-                        <span class="checkmark"></span>
                     </label>
                 </div>
-                <p style="margin-top: 20px;" >Don't have an account? <u><a href="customer_registration.php">Register Now</a></u></p>
+                <p style="margin-top: 20px;">Don't have an account? <u><a href="customer_registration.php">Register Now</a></u></p>
             </form>
         </section>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalerts.min.js"></script>
-    <script src = "script.js"></script>
 </body>
 </html>

@@ -1,85 +1,145 @@
 <?php
 session_start();
-if(!isset($_SESSION["first_name"])){
-    header("Location: ../view/customer_registration.php");
-}
-
 require '../model/db.php';
 
-$mydb = new mydb();
-$connectionObject = $mydb->openCon();
+$c_id = $_SESSION['email'] ?? null;
 
-// Initialize $result to null
-$result = null;
-
-// Handle button clicks
-if (isset($_GET['view_all'])) {
-    // Fetch all products
-    $result = $mydb->showProduct($connectionObject);
-} elseif (isset($_GET['view_by_id']) && !empty($_GET['pr_id'])) {
-    // View by Product ID
-    $pr_id = $_GET['pr_id'];
-    $result = $mydb->showProductById($connectionObject, $pr_id);
-} elseif (isset($_GET['view_by_name']) && !empty($_GET['p_name'])) {
-    // View by Product Name
-    $p_name = $_GET['p_name'];
-    $result = $mydb->showProductByName($connectionObject, $p_name);
+if (!$c_id) {
+    die("Unauthorized access. Please log in.");
 }
 
+// Fetch customer data
+$sql = "SELECT c_first_name, c_last_name, c_phone, c_email, c_street FROM customer WHERE c_email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $c_id); // Changed from "i" to "s" because email is a string
+$stmt->execute();
+$result = $stmt->get_result();
+$customer = $result->fetch_assoc();
 
+if (!$customer) {
+    die("Customer not found.");
+}
+
+// Fetch order details
+$order_sql = "SELECT amount, order_date, status FROM order_table WHERE c_id = (SELECT c_id FROM customer WHERE c_email = ?)";
+$order_stmt = $conn->prepare($order_sql);
+$order_stmt->bind_param("s", $c_id);
+$order_stmt->execute();
+$order_result = $order_stmt->get_result();
+
+// Handle form submission
+$errors = [];
+$success = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $first_name = trim($_POST['first_name']);
+    $last_name = trim($_POST['last_name']);
+    $phone = trim($_POST['phone']);
+    $email = trim($_POST['email']);
+    $address = trim($_POST['address']);
+
+    // Basic validation
+    if (empty($first_name) || empty($last_name)) {
+        $errors[] = "First and Last Name are required.";
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Invalid email format.";
+    }
+    if (!preg_match("/^\d{10,15}$/", $phone)) {
+        $errors[] = "Phone number must be 10-15 digits.";
+    }
+
+    // Update customer details if no errors
+    if (empty($errors)) {
+        $update_sql = "UPDATE customer SET c_first_name=?, c_last_name=?, c_phone=?, c_email=?, c_street=? WHERE c_email=?";
+        $update_stmt = $conn->prepare($update_sql);
+        $update_stmt->bind_param("ssssss", $first_name, $last_name, $phone, $email, $address, $c_id);
+
+        if ($update_stmt->execute()) {
+            $success = "Profile updated successfully!";
+            // Refresh customer data
+            $customer = ['c_first_name' => $first_name, 'c_last_name' => $last_name, 'c_phone' => $phone, 'c_email' => $email, 'c_street' => $address];
+        } else {
+            $errors[] = "Error updating profile.";
+        }
+    }
+}
+
+// Close connection
+$conn->close();
 ?>
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Product Dashboard</title>
-        <!--<link rel="stylesheet" href="../css/mystyle.css"-->
-    </head>
-    <body>
-        <h1>Welcome, <?php echo $_SESSION["first_name"]; ?>!</h1>
-        <a href="../control/sessionout.php">Log Out</a>
-        <h2>Product Records</h2>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profile</title>
+    <!--<link rel="stylesheet" href="../css/mystyle.css">-->
+</head>
+<body>
 
-        <!-- Form to view products -->
-        <form method="GET">
-            <button name="view_all">View All Products</button><br><br>
-            
-            <!-- View by Product ID -->
-            <label for="pr_id">View by Product ID:</label>
-            <input type="text" name="pr_id" id="pr_id">
-            <button name="view_by_id">View Product by ID</button><br><br>
+<div class="container-profile">
+    <h2>Customer Profile</h2>
 
-            <!-- View by Product Name -->
-            <label for="p_name">View by Product Name:</label>
-            <input type="text" name="p_name" id="p_name">
-            <button name="view_by_name">View Product by Name</button><br><br>
-        </form>
+    <?php if (!empty($errors)): ?>
+        <div class="profile-error">
+            <?php foreach ($errors as $error) echo "<p>$error</p>"; ?>
+        </div>
+    <?php endif; ?>
 
-        <!-- Display product records -->
-        <?php if ($result && $result->num_rows > 0): ?>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Product ID</th>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Model</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr>
-                            <td><?php echo $row['pr_id']; ?></td>
-                            <td><?php echo $row['p_name']; ?></td>
-                            <td><?php echo $row['p_price']; ?></td>
-                            <td><?php echo $row['p_category']; ?></td>
-                            <td><?php echo $row['p_model']; ?></td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <p>No product records found.</p>
-        <?php endif; ?>
-    </body>
+    <?php if ($success): ?>
+        <div class="profile-success"><?php echo $success; ?></div>
+    <?php endif; ?>
+
+    <form method="POST" action="">
+        <div class="profile-form-group">
+            <label>First Name:</label>
+            <input type="text" name="first_name" value="<?php echo ($customer['c_first_name']); ?>">
+        </div>
+        <div class="profile-form-group">
+            <label>Last Name:</label>
+            <input type="text" name="last_name" value="<?php echo ($customer['c_last_name']); ?>">
+        </div>
+        <div class="profile-form-group">
+            <label>Phone Number:</label>
+            <input type="tel" name="phone" value="<?php echo ($customer['c_phone']); ?>">
+        </div>
+        <div class="profile-form-group">
+            <label>Email:</label>
+            <input type="email" name="email" value="<?php echo ($customer['c_email']); ?>">
+        </div>
+        <div class="profile-form-group">
+            <label>Address:</label>
+            <input type="text" name="address" value="<?php echo ($customer['c_street']); ?>">
+        </div>
+        <button type="submit" class="profile-submit">Update Profile</button>
+    </form>
+
+    <div class="profile-change-password">
+        <a href="change_password_profile.php">Change Password</a>
+    </div>
+
+    <h2>Order History</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Date Ordered</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php while ($order = $order_result->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo ($order['amount']); ?></td>
+                    <td><?php echo ($order['order_date']); ?></td>
+                    <td><?php echo ($order['status']); ?></td>
+                </tr>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
+</div>
+
+</body>
 </html>
