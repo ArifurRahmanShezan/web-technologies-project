@@ -159,6 +159,7 @@ else if($_POST['user_type']==="admin"){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Login</title>
 </head>
 <body>
@@ -187,7 +188,7 @@ else if($_POST['user_type']==="admin"){
                 <div class="input-field">
                     <p>Password</p>
                     <input type="password" name="pass" placeholder="Enter the password" maxlength="50" required>
-                    <a href="forget_password.php" style="display: block; margin-top: 10px; font-size: 0.800em; text-align: left;">Forgot Password?</a>
+                    <a href="forget_password.php">Forgot Password?</a>
                 </div>
                 <input type="submit" name="login" value="Login">
                 <div class="check-box">

@@ -7,7 +7,7 @@ require '../control/reg_control.php';
 <html lang="en">
 <head>
     <title>Customer Registration</title>
-    <!--<link rel="stylesheet" href="../css/mystyle.css">-->
+    <link rel="stylesheet" href="../css/style.css">
     <script src="../js/myscript.js"></script>
 </head>
 <body>
@@ -115,6 +115,12 @@ require '../control/reg_control.php';
                 <label for="agree">
                     <input type="checkbox" name="agree" id="agree" value="yes"> I agree with the 
                     <a href="#" title="terms of services">terms and conditions</a>
+                </label>
+                <br>
+                <br>
+                <label for="login">
+                    Already have an account? 
+                    <b><a href="login.php" >Log in</a></b>
                 </label>
                 <br>
                 <table>

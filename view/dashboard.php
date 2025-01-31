@@ -17,59 +17,19 @@ $result = $mydb->showProduct($connectionObject);
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="../css/style.css">
     <title>Product Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .product-card {
-            width: 250px;
-            background: white;
-            margin: 15px;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .product-card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-        .buy-btn {
-            display: inline-block;
-            background: #007bff;
-            color: white;
-            padding: 8px 15px;
-            margin-top: 10px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-        .buy-btn:hover {
-            background: #0056b3;
-        }
-    </style>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/myscript.js"></script>
 </head>
-<body>
+<body class="dashboard-page">
     <h1>Welcome, <?php echo $_SESSION["email"]; ?>!</h1>
     <a href="../control/sessionout.php">Log Out</a>
     <a href="profile.php">Profile</a>
     <h2>Products</h2>
 
-    <form>
+    <form class="products">
         <button name="view_all"id="searchAll">View All Products</button><br><br>
         <label for="pr_id">View by Product ID:</label>
         <input type="text" name="pr_id" id="pr_id">

@@ -82,12 +82,16 @@ $db->closeCon($conn);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Customer Profile</title>
 </head>
-<body>
+<body class="profile-data">
 
 <div class="container-profile">
     <h2>Customer Profile</h2>
+    <a class="backdash" href="dashboard.php">Back</a>
+    <br>
+    
 
     <?php if (!empty($errors)): ?>
         <div class="profile-error">
@@ -121,11 +125,13 @@ $db->closeCon($conn);
             <input type="text" name="address" value="<?php echo ($customer['c_street']); ?>">
         </div>
         <button type="submit" class="profile-submit">Update Profile</button>
-    </form>
-
-    <div class="profile-change-password">
+        <div class="profile-change-password">
         <a href="change_password_profile.php">Change Password</a>
     </div>
+    
+    </form>
+
+   
 
     <h2>Order History</h2>
     <table border="1">

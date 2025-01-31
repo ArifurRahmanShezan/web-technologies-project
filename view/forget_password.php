@@ -36,11 +36,11 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Forgot Password</title>
-    <style>
-    </style>
+    
 </head>
-<body>
+<body class="forget-pass">
     <div class="form-container">
         <section class="form-container">
             <div class="title">

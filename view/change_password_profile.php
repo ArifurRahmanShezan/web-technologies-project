@@ -67,11 +67,14 @@ $db->closeCon($conn);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Change Password</title>
-    <link rel="stylesheet" href="../css/mystyle.css">
+    
+    
     <script src="../js/myscript.js"></script>
 </head>
-<body>
+<body class="change-pass-profile">
+    
 
 <div class="container">
     <h2>Change Password</h2>

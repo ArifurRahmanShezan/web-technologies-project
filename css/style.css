@@ -1,0 +1,773 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styling the Form */
+form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="file"] {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+input[type="reset"] {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="reset"]:hover {
+    background-color: #d32f2f;
+}
+
+label {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+span {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Styling the Gender Section */
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Styling the checkbox section */
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #4CAF50;
+}
+
+/* Responsive Styling */
+@media screen and (max-width: 768px) {
+    form {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="number"],
+    input[type="password"],
+    textarea,
+    select {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    button[type="submit"],
+    input[type="reset"] {
+        width: 100%;
+        padding: 12px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+}
+
+
+
+input[type="number"] {
+    appearance: none;
+    -moz-appearance: textfield; /* Firefox */
+    -webkit-appearance: none; /* Chrome, Safari, Edge */
+    outline: none;
+    height: calc(100% + 10px); /* 2px wider */
+    margin-bottom: 5px; /* Bottom margin of 5px */
+}
+  
+/* To completely hide spinner buttons */
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+/* Login Page Styling */
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.title h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.title p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.input-field p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.input-field input,
+.input-field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.input-field input:focus,
+.input-field select:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.check-box {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.check-box label {
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.check-box input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+
+a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media screen and (max-width: 480px) {
+    .form-container {
+        max-width: 90%;
+        padding: 15px;
+    }
+    
+    .title h1 {
+        font-size: 20px;
+    }
+    
+    .input-field p {
+        font-size: 14px;
+    }
+    
+    input[type="submit"] {
+        font-size: 14px;
+    }
+}
+
+
+
+.dashboard-page {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.dashboard-page h1 {
+    font-size: 34px;
+    color: #000;
+    margin-bottom: 15px;
+}
+
+.dashboard-page a {
+    display: inline-block;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+    margin: 10px;
+}
+
+.dashboard-page a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.dashboard-page .container {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.dashboard-page .product-card {
+    width: 250px;
+    background: white;
+    margin: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.dashboard-page .product-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.dashboard-page .buy-btn {
+    display: inline-block;
+    background: #007bff;
+    color: white;
+    padding: 8px 15px;
+    margin-top: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.dashboard-page .buy-btn:hover {
+    background: #0056b3;
+}
+
+
+.dashboard-page .products {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.dashboard-page .products label {
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.dashboard-page .products input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.dashboard-page .products button {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s ease-in-out;
+}
+
+.dashboard-page .products button:hover {
+    background: #0056b3;
+}
+
+
+.forget-pass {
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.forget-pass .title h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.forget-pass .title p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.forget-pass form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.forget-pass form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background 0.3s ease-in-out;
+}
+
+.forget-pass form input[type="submit"]:hover {
+    background: #0056b3;
+}
+
+.change-pass-profile {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.change-pass-profile .container {
+    width: 40%;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.change-pass-profile h2 {
+    text-align: center;
+    color: #333;
+}
+
+.change-pass-profile .form-group {
+    margin-bottom: 15px;
+}
+
+.change-pass-profile label {
+    font-weight: bold;
+}
+
+.change-pass-profile input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.change-pass-profile button {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+}
+
+.change-pass-profile button:hover {
+    background: #0056b3;
+}
+
+.change-pass-profile .error {
+    color: rgb(248, 57, 57);
+    margin-bottom: 10px;
+}
+
+.change-pass-profile .success {
+    color: rgb(51, 146, 51);
+    margin-bottom: 10px;
+}
+
+.change-pass-profile button[type="submit"] {
+    background: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    transition: background 0.2s ease-in-out;
+    margin-top: 20px; /* Adds space above */
+}
+
+.change-pass-profile button[type="submit"]:hover {
+    background: #085f1b;
+}
+
+.change-pass-profile a {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1.05em;
+}
+
+.change-pass-profile a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.change-pass {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.change-pass form {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.change-pass h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.change-pass input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.change-pass input[type="submit"] {
+    background: #007bff;
+    color: white;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+}
+
+.change-pass input[type="submit"]:hover {
+    background: #0056b3;
+}
+
+.orders {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.orders .payment-container {
+    background: white;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.orders .payment-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.orders .form-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.orders .form-btn {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1em;
+}
+
+.orders .form-btn:hover {
+    background: #0056b3;
+}
+
+.profile-data {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.container-profile {
+    background: white;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 60%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-profile h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.profile-form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.profile-form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.profile-form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.profile-submit {
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1em;
+}
+
+.profile-submit:hover {
+    background: #0056b3;
+}
+
+.profile-error, .profile-success {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.profile-error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.profile-success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.profile-change-password {
+    margin-top: 20px;
+}
+
+.profile-change-password a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.profile-change-password a:hover {
+    text-decoration: underline;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+table th {
+    background-color: #007bff;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.change-pass-profile .backdash {
+    display: flex;
+    justify-content: left;
+    margin-top: 10px;
+    text-align: left;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1.05em;
+}
+
+.change-pass-profile .backdash:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}

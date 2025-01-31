@@ -68,13 +68,15 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Reset Password</title>
 </head>
-<body>
+<body class="change-pass">
 
-    <h2>Reset Password</h2>
+    
 
     <form action="" method="POST">
+    <h1>Enter your New Password</h1>
         <input type="password" name="new_password" placeholder="Enter New Password" >
         <input type="password" name="confirm_password" placeholder="Confirm New Password" >
         <input type="submit" name="submit" value="Submit">
