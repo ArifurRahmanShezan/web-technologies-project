@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>Post Ad</title>
-    <link rel="stylesheet" type="text/css" href="/sellerpage/css/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="../../../sellerpage/css/mystyle.css">
 </head>
 <body>
     <div class="post-ad-container">

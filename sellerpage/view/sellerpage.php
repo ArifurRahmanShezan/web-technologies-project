@@ -7,13 +7,13 @@ require '../control/reg_control.php';
 <html>
 <head>
     <title>Seller Registration Page</title>
-    <link rel="stylesheet" type="text/css" href="/sellerpage/css/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="../../sellerpage/css/mystyle.css">
 </head>
 <body>
     <form action="" method="POST" onsubmit="return checkUname() && validateForm();">
         <fieldset>
             <div class="logo-container">
-                <img src="/sellerpage/images/file.png" alt="AutoFleet Logo" class="logo">
+                <img src="../../sellerpage/images/file.png" alt="AutoFleet Logo" class="logo">
             </div>
             <h2>Seller Registration Page</h2>
             

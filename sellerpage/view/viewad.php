@@ -43,14 +43,14 @@ $conn->close();
 <html>
 <head>
     <title><?php echo htmlspecialchars($ad["p_name"]); ?></title>
-    <link rel="stylesheet" type="text/css" href="/sellerpage/css/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="../../../sellerpage/css/mystyle.css">
 </head>
 <body>
 
     <div class="ad-container">
         <div class="ad-image">
             <?php if (!empty($ad["p_model"])): ?>
-                <img src="<?php echo '../product/' . htmlspecialchars($_GET['id']) . '.jpg'; ?>" alt="Ad Image">
+                <img src="<?php echo '../../../sellerpage/product/' . htmlspecialchars($_GET['id']) . '.jpg'; ?>" alt="Ad Image">
             <?php else: ?>
                 <img src="../images/placeholder.png" alt="No Image Available">
             <?php endif; ?>

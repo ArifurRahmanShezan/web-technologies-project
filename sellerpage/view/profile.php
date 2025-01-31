@@ -30,12 +30,12 @@ $myDB->closeCon($connectionObject);
 <html>
 <head>
     <title>Seller Profile</title>
-    <link rel="stylesheet" type="text/css" href="/sellerpage/css/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="../../../sellerpage/css/mystyle.css">
 
 </head>
 <body>  
     
-             <a href="sellerpage.php" class="llogout-btn">Log Out</a>
+             <a href="../../../view/login.php" class="llogout-btn">Log Out</a>
              
            
                <div class="profile-container">
@@ -77,7 +77,7 @@ $myDB->closeCon($connectionObject);
             </table>
         </div>
     <div class="plogo-container">
-                <img src="/sellerpage/images/file.png" alt="AutoFleet Logo" class="plogo">
+                <img src="../../../sellerpage/images/file.png" alt="AutoFleet Logo" class="plogo">
             </div>
          
 </body>
