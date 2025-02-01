@@ -19,19 +19,27 @@ require '../control/reg_control.php';
                 <table>
                     <tr>
                         <td>First Name</td>
-                        <td><input type="text" name="first_name" placeholder="Enter your first name"required></td>
+                        <td><input type="text" name="first_name" placeholder="Enter your first name">
+                            <span id="first_nameError" class="error"></span>
+                        </td>
                     </tr>
                     <tr>
                         <td>Last Name</td>
-                        <td><input type="text" name="last_name" placeholder="Enter your last name"required></td>
+                        <td><input type="text" name="last_name" placeholder="Enter your last name">
+                            <span id="last_nameError" class="error"></span>
+                        </td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td><input type="email" name="email" placeholder="Enter your email"></td>
+                        <td><input type="email" name="email" placeholder="Enter your email">
+                            <span id="emailError" class="error"></span>
+                        </td>
                     </tr>
                     <tr>
                         <td>Phone</td>
-                        <td><input type="tel" name="phone" placeholder="Enter your phone number"></td>
+                        <td><input type="tel" name="phone" placeholder="Enter your phone number">
+                            <span id="phoneError" class="error"></span>
+                        </td>
                     </tr>
                     <tr>
                         <td>Date of Birth</td>
@@ -103,7 +111,9 @@ require '../control/reg_control.php';
                 <table>
                     <tr>
                         <td>Password :</td>
-                        <td><input type="password" name="password" placeholder="Enter your password"></td>
+                        <td><input type="password" name="password" placeholder="Enter your password">
+                            <span id="passwordError" class="error"></span>
+                        </td>
                     </tr>
                     <tr>
                         <td>Re-enter Password :</td>

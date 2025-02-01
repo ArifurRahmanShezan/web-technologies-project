@@ -43,7 +43,7 @@ function validateAge() {
 
 function validateZIP() {
     var postalCode = document.getElementById("postal_code").value.trim();
-    if (!/^\d{5}$/.test(postalCode)) {
+    if (!/^\d{4}$/.test(postalCode)) {
         document.getElementById("zipError").innerHTML = "Zip code must be a 4-digit number.";
         return false;
     } else {

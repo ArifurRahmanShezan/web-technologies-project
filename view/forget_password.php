@@ -9,12 +9,11 @@ $mydb = new myDB();
 $connectionObject = $mydb->openCon();
 
 // Initialize variables
-$message = [];
+$message = "";
 
 if (isset($_POST['submit'])) {
     // Retrieve and sanitize the email input
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    echo $email;
 
     // Use the showProduct method of myDB class to fetch data
     $sql = "SELECT * FROM `customer` WHERE c_email = '$email'";
@@ -24,7 +23,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['email'] = $email;
         header('location:change_password.php');
     } else {
-        echo "No account associated with this email. Please check your email address.";
+        $message = "No account associated with this email. Please check your email address.";
     }
 }
 
@@ -38,7 +37,6 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
     <title>Forgot Password</title>
-    
 </head>
 <body class="forget-pass">
     <div class="form-container">
@@ -47,9 +45,12 @@ if (isset($_POST['submit'])) {
                 <h1>Forgot Password</h1>
                 <p>Follow the steps to reset your password.</p>
             </div>
-            <form action=""method="POST">
+            <form action="" method="POST">
                 <input type="text" name="email" placeholder="enter your email">
                 <input type="submit" name="submit" value="Submit">
+                <!-- Display error message -->
+                <?php if ($message) { echo '<p class="error-message">' . $message . '</p>'; } ?>
+                <a href="login.php">Back</a>
             </form>
         </section>
     </div>

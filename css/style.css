@@ -771,3 +771,8 @@ table tr:hover {
     text-decoration: underline;
     color: #0056b3;
 }
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}

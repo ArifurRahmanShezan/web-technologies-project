@@ -28,12 +28,12 @@ $errors = [];
 $success = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $current_password = trim($_POST['current_password']);
-    $new_password = trim($_POST['new_password']);
-    $confirm_password = trim($_POST['confirm_password']);
+    $current_password = isset($_POST['current_password']) ? trim($_POST['current_password']) : "";
+    $new_password = isset($_POST['new_password']) ? trim($_POST['new_password']) : "";
+    $confirm_password = isset($_POST['confirm_password']) ? trim($_POST['confirm_password']) : "";
 
     // Validate inputs
-    if (empty($current_password) || empty($new_password) || empty($confirm_password)) {
+    if ($current_password === "" || $new_password === "" || $confirm_password === "") {
         $errors[] = "All fields are required.";
     } elseif ($new_password !== $confirm_password) {
         $errors[] = "New password and confirm password do not match.";
@@ -53,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $success = "Password updated successfully!";
             sleep(2);
             header("Location: profile.php");
+            exit();
         } else {
             $errors[] = "Error updating password.";
         }
@@ -69,12 +70,9 @@ $db->closeCon($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
     <title>Change Password</title>
-    
-    
     <script src="../js/myscript.js"></script>
 </head>
 <body class="change-pass-profile">
-    
 
 <div class="container">
     <h2>Change Password</h2>
@@ -89,25 +87,23 @@ $db->closeCon($conn);
         <div class="success"><?php echo $success; ?></div>
     <?php endif; ?>
 
-    <form method="POST" action="" id="changePasswordForm">
+    <form method="POST" action="">
         <div class="form-group">
             <label>Current Password:</label>
-            <input type="password" name="current_password" required>
+            <input type="password" name="current_password">
         </div>
         <div class="form-group">
             <label>New Password:</label>
-            <input type="password" id="new_password" name="new_password" required>
+            <input type="password" name="new_password">
         </div>
         <div class="form-group">
             <label>Confirm New Password:</label>
-            <input type="password" id="confirm_password" name="confirm_password" required>
+            <input type="password" name="confirm_password">
         </div>
-        <div id="error_message" class="error"></div>
         <button type="submit">Update Password</button>
         <a href="profile.php">Back</a>
     </form>
 </div>
-
 
 </body>
 </html>

@@ -42,31 +42,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $first_name = trim($_POST['first_name']);
     $last_name = trim($_POST['last_name']);
     $phone = trim($_POST['phone']);
-    $email = trim($_POST['email']);
     $address = trim($_POST['address']);
 
     // Basic validation
     if (empty($first_name) || empty($last_name)) {
         $errors[] = "First and Last Name are required.";
     }
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email format.";
-    }
     if (!preg_match("/^\d{10,15}$/", $phone)) {
         $errors[] = "Phone number must be 10-15 digits.";
+    }
+    if (empty($address)) {
+        $errors[] = "Address cannot be empty.";  // Added address validation
     }
 
     // Update customer details if no errors
     if (empty($errors)) {
         // Use the myDB method to update customer details
-        $update_sql = "UPDATE customer SET c_first_name=?, c_last_name=?, c_phone=?, c_email=?, c_street=? WHERE c_email=?";
+        $update_sql = "UPDATE customer SET c_first_name=?, c_last_name=?, c_phone=?, c_street=? WHERE c_email=?";
         $update_stmt = $conn->prepare($update_sql);
-        $update_stmt->bind_param("ssssss", $first_name, $last_name, $phone, $email, $address, $c_id);
+        $update_stmt->bind_param("sssss", $first_name, $last_name, $phone, $address, $c_id);
 
         if ($update_stmt->execute()) {
             $success = "Profile updated successfully!";
+            header("Location: dashboard.php");
             // Refresh customer data
-            $customer = ['c_first_name' => $first_name, 'c_last_name' => $last_name, 'c_phone' => $phone, 'c_email' => $email, 'c_street' => $address];
+            $customer = ['c_first_name' => $first_name, 'c_last_name' => $last_name, 'c_phone' => $phone, 'c_street' => $address];
         } else {
             $errors[] = "Error updating profile.";
         }
@@ -91,7 +91,6 @@ $db->closeCon($conn);
     <h2>Customer Profile</h2>
     <a class="backdash" href="dashboard.php">Back</a>
     <br>
-    
 
     <?php if (!empty($errors)): ?>
         <div class="profile-error">
@@ -117,10 +116,6 @@ $db->closeCon($conn);
             <input type="tel" name="phone" value="<?php echo ($customer['c_phone']); ?>">
         </div>
         <div class="profile-form-group">
-            <label>Email:</label>
-            <input type="email" name="email" value="<?php echo ($customer['c_email']); ?>">
-        </div>
-        <div class="profile-form-group">
             <label>Address:</label>
             <input type="text" name="address" value="<?php echo ($customer['c_street']); ?>">
         </div>
@@ -130,8 +125,6 @@ $db->closeCon($conn);
     </div>
     
     </form>
-
-   
 
     <h2>Order History</h2>
     <table border="1">
