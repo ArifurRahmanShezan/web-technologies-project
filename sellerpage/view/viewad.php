@@ -24,7 +24,7 @@ if ($conn->connect_error) {
 }
 
 // Fetch ad details from the database
-$stmt = $conn->prepare("SELECT p_name, p_price, p_category, p_model, s_id FROM product WHERE pr_id = ?");
+$stmt = $conn->prepare("SELECT * FROM product WHERE pr_id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -56,10 +56,12 @@ $conn->close();
             <?php endif; ?>
         </div>
         <h1 class="ad-title"><?php echo htmlspecialchars($ad["p_name"]); ?></h1>
+        <h1 class="ad-info">Model: <?php echo htmlspecialchars($ad["p_model"]); ?></h1>
         <p class="ad-info">Category: <?php echo htmlspecialchars($ad["p_category"]); ?></p>
         <p class="ad-price">Tk <?php echo number_format((float)$ad["p_price"]); ?></p>
         <div class="ad-description">
             <h2>Description</h2>
+            <p> <?php echo $ad["p_description"] ?></p>
         </div>
         <a href="all_ads.php" class="back-link">Back to All Ads</a>
     </div>
