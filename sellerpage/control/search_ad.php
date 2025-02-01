@@ -1,62 +1,41 @@
 <?php
 require '../model/db.php';
 
-// Get the search query
-$query = isset($_GET['query']) ? trim($_GET['query']) : '';
+$search = $_POST['search'] ?? ''; // Get the search term if available, otherwise an empty string
 
 $conn = new mysqli("localhost", "root", "", "user");
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-if (empty($query)) {
-    echo '<p>Please enter a search term.</p>';
-    exit;
+
+// If there is a search term, filter ads based on the name; otherwise, get all ads
+if ($search) {
+    $sql = "SELECT pr_id, p_name, p_price FROM product WHERE p_name LIKE ? OR p_model LIKE ?";
+    $stmt = $conn->prepare($sql);
+    $searchParam = "%$search%";
+    $stmt->bind_param("ss", $searchParam,$searchParam);
+} else {
+    // Get all ads if no search term is provided
+    $sql = "SELECT pr_id, p_name, p_price FROM product";
+    $stmt = $conn->prepare($sql);
 }
-// Search ads
-$stmt = $conn->prepare("SELECT pr_id, p_name, p_price, p_category, p_model FROM product WHERE p_name LIKE CONCAT('%', ?, '%') OR p_category LIKE CONCAT('%', ?, '%')");
-$stmt->bind_param("ss", $query, $query);
+
 $stmt->execute();
 $result = $stmt->get_result();
-?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="../css/mystyle.css">
-    <title>Search Results</title>
-</head>
-<body>
-
-<div class="all_ads">
-<?php
-$response = '';
 if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $response .= '<a href="viewad.php?id=' . htmlspecialchars($row['pr_id']) . '" class="ad-card">';
-        $response .= '    <div class="ad-image">';
-        if (!empty($row["p_model"])) {
-            $response .= '        <img src="' . htmlspecialchars($row["p_model"]) . '" alt="Ad Image">';
-        } else {
-            $response .= '        <img src="../images/placeholder.png" alt="No Image">';
-        }
-        $response .= '    </div>';
-        $response .= '    <div class="ad-details">';
-        $response .= '        <p class="ad-title">' . htmlspecialchars($row['p_name']) . '</p>';
-        $response .= '        <p class="ad-price">Tk ' . number_format((float)$row['p_price']) . '</p>';
-        $response .= '    </div>';
-        $response .= '</a>';
+    while ($ad = $result->fetch_assoc()) {
+        echo '<a href="viewad.php?id='.$ad['pr_id'].'" class="ad-card">';
+        echo '<div class="ad-details">';
+        echo '<img src="' . '../../../sellerpage/product/' . htmlspecialchars($ad['pr_id']) . '.jpg" alt="Ad Image">';
+        echo '<p class="ad-title">'.htmlspecialchars($ad["p_name"]).'</p>';
+        echo '<p class="ad-price">Tk '.number_format((float)$ad["p_price"]).'</p>';
+        echo '</div></a>';
     }
 } else {
-    $response = '<p>No ads found.</p>';
+    echo "<p>No ads found.</p>";
 }
 
-// Output the response
-echo $response;
-
-$stmt->close();
 $conn->close();
 ?>
-</div>
-
-</body>
-</html>

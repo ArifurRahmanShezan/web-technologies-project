@@ -19,27 +19,20 @@ require '../control/reg_control.php';
                 <table>
                     <tr>
                         <td>First Name</td>
-                        <td><input type="text" name="first_name" placeholder="Enter your first name">
-                            <span id="first_nameError" class="error"></span>
-                        </td>
+                        <td><input type="text" name="first_name" placeholder="Enter your first name"></td>
                     </tr>
                     <tr>
                         <td>Last Name</td>
-                        <td><input type="text" name="last_name" placeholder="Enter your last name">
-                            <span id="last_nameError" class="error"></span>
-                        </td>
+                        <td><input type="text" name="last_name" placeholder="Enter your last name"></td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td><input type="email" name="email" placeholder="Enter your email">
-                            <span id="emailError" class="error"></span>
-                        </td>
+                        <td><input type="email" name="email" id= "email" placeholder="Enter your email" oninput="checkUserEmail()"><br>
+                        <span id="check-email" class="error"></span></td>
                     </tr>
                     <tr>
                         <td>Phone</td>
-                        <td><input type="tel" name="phone" placeholder="Enter your phone number">
-                            <span id="phoneError" class="error"></span>
-                        </td>
+                        <td><input type="tel" name="phone" placeholder="Enter your phone number"></td>
                     </tr>
                     <tr>
                         <td>Date of Birth</td>
@@ -48,19 +41,19 @@ require '../control/reg_control.php';
                     </tr>
                     <tr>
                          <td>Gender</td>
-                         <td>
-    <label>
-        <input type="radio" name="gender" value="male"> Male
-    </label>
-    <label>
-        <input type="radio" name="gender" value="female"> Female
-    </label>
-    <label>
-        <input type="radio" name="gender" value="others"> Others
-    </label>
-    <span id="genderError"></span>
-</td>
-                    </tr>
+                        <td>
+                            <label>
+                                <input type="radio" name="gender" id="gender" value="male"> Male
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" id="gender" value="female"> Female
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" id="gender" value="others"> Others
+                            </label>
+                            <span id="genderError"></span>
+                        </td>
+                                            </tr>
                     <tr>
                         <td>Profile Picture</td>
                         <td><input type="file" name="profile_picture"></td>
@@ -111,9 +104,7 @@ require '../control/reg_control.php';
                 <table>
                     <tr>
                         <td>Password :</td>
-                        <td><input type="password" name="password" placeholder="Enter your password">
-                            <span id="passwordError" class="error"></span>
-                        </td>
+                        <td><input type="password" name="password" placeholder="Enter your password"></td>
                     </tr>
                     <tr>
                         <td>Re-enter Password :</td>
@@ -136,12 +127,13 @@ require '../control/reg_control.php';
                 <table>
                     <tr>
                         <!--<td><input type="submit" value="Submit"class="button"></td>-->
-                        <td><button type="submit">Submit</button></td>
+                        <td><button type="submit" id = "submit">Submit</button></td>
                         <td><input type="reset" value="Clear Form"class="buttonr"></td>
                     </tr>
                 </table>
             </fieldset>
         </fieldset>
     </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

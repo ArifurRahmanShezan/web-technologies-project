@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_REQUEST['dob'])) {
         $dob = $_REQUEST['dob'];
     } else {
-        echo '<p id="error">Please provide your date of birth.</p><br>';
+        echo '<p id="ageError">Please provide your date of birth.</p><br>';
         $hasError = false;
     }
 
@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_REQUEST['gender'])) {
         $gender = $_REQUEST['gender'];
     } else {
-        echo '<p id="error">Please select a gender.</p><br>';
+        echo '<p id="genderError">Please select a gender.</p><br>';
         $hasError = false;
     }
 

@@ -10,13 +10,12 @@ if (!isset($_SESSION["email"])) {
 // Connect to the database
 $conn = new mysqli("localhost", "root", "", "user");
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 // Fetch ads from the database
-$sql = "SELECT pr_id, p_name, p_price FROM product";
+$sql = "SELECT * FROM product";
 $result = $conn->query($sql);
 
 $ads = [];
@@ -33,7 +32,6 @@ $conn->close();
 <head>
     <title>All Ads</title>
     <link rel="stylesheet" type="text/css" href="../../../sellerpage/css/mystyle.css">
-
 </head>
 <body>
 
@@ -42,7 +40,7 @@ $conn->close();
     <h4>All Ads</h4>
     <input type="text" id="search" onkeyup="searchAd()" placeholder="Search ads...">
 </div>
-<div id="ad-results"></div> <!-- Search results -->
+<div id="ad-results">
     <?php if (!empty($ads)): ?>
         <?php foreach ($ads as $ad): ?>
             <a href="viewad.php?id=<?php echo $ad['pr_id']; ?>" class="ad-card">
@@ -60,10 +58,10 @@ $conn->close();
                     }
                     ?>
                    <img src="<?php echo '../../../sellerpage/product/' . htmlspecialchars($ad['pr_id']) . '.jpg'; ?>" alt="Ad Image">
-
                 </div>
                 <div class="ad-details">
                     <p class="ad-title"><?php echo htmlspecialchars($ad["p_name"]); ?></p>
+                    <p class="ad-title"><?php echo htmlspecialchars($ad["p_model"]); ?></p>
                     <p class="ad-price">Tk <?php echo number_format((float)$ad["p_price"]); ?></p>
                 </div>
             </a>
@@ -71,8 +69,11 @@ $conn->close();
     <?php else: ?>
         <p>No ads available.</p>
     <?php endif; ?>
+</div>
     <a href="profile.php" class="logout-btn">Back to Profile</a>
 </div>
-<script src="../sellerpage/js/myjs.js"></script>
+<script src="../../../sellerpage/js/myjs.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
 </html>
