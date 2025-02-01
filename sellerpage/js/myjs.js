@@ -85,17 +85,34 @@ function validateForm() {
     return isValid;
 }
 function searchAd() {
-    var query = document.getElementById("search").value; // Get the search input value
-    var xhttp = new XMLHttpRequest(); // Create an XMLHttpRequest object
+    // var query = document.getElementById("search").value; // Get the search input value
+    // var xhttp = new XMLHttpRequest(); // Create an XMLHttpRequest object
 
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            // Update the results container with the response
-            document.getElementById("ad-results").innerHTML = this.responseText;
-        }
-    };
+    // xhttp.onreadystatechange = function () {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         // Update the results container with the response
+    //         document.getElementById("ad-results").innerHTML = this.responseText;
+    //     }
+    // };
 
-    // Send the request to the search endpoint
-    xhttp.open("GET", "http://localhost/sellerpage/control/search_ad.php?query=" + query, true);
-    xhttp.send();
+    // // Send the request to the search endpoint
+    // xhttp.open("GET", "http://localhost/sellerpage/control/search_ad.php?query=" + query, true);
+    // xhttp.send();
+    $(document).ready(function() {
+        $("#search").on("keyup", function() {
+            let query = $(this).val();
+
+            // Clear the previous results
+            $("#ad-results").empty();
+                // Show the filtered results based on the query
+                $.ajax({
+                    url: "../../control/search_ad.php",
+                    method: "POST",
+                    data: { search: query },
+                    success: function(data) {
+                        $("#ad-results").html(data);
+                    }
+                });
+        });
+    });
 }

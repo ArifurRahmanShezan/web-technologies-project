@@ -35,9 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $s_id = 1; // $_SESSION["s_id"];
         
         // Insert product without image path first
-        $query = "INSERT INTO product (s_id, p_name, p_price, p_category,p_model) VALUES (?, ?, ?, ?,?)";
+        $query = "INSERT INTO product (s_id, p_name, p_price, p_category,p_model,p_description) VALUES (?, ?, ?, ?,?,?)";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("isdss", $s_id, $title, $price, $category,$model);
+        $stmt->bind_param("isdsss", $s_id, $title, $price, $category,$model,$description);
         
         if ($stmt->execute()) {
             $last_inserted_id = $stmt->insert_id;

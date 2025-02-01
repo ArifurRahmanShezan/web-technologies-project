@@ -48,6 +48,7 @@ class myDB {
             WHERE s_id = $s_id";
         return $connectionObject->query($sql);
     }
+    
 
     public function closeCon($connectionObject) {
         $connectionObject->close();
