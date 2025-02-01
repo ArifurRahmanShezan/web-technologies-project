@@ -251,7 +251,7 @@ else if($_POST['user_type']==="employee"){
             error_log("Cookie set for user email: $email");
  
         // Redirect to profile page
-        header('Location: ../employee/view//employee.php');
+        header('Location: ../employee/view//dashboard.php');
         exit;
  
         } else {

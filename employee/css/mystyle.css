@@ -1,50 +1,107 @@
+/* General Styles */
 body {
-    background-color: rgb(252, 237, 31);
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
+h1, h2, h3 {
+    color: #3194c2;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    margin-top: 20px;
+}
+
+a {
+    color: #3c97c2;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
 
 form {
-    border: 3px solid #000;
+    max-width: 600px;
+    margin: 20px auto;
     padding: 20px;
-    border-radius: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-
-
-.btnpurple {
-    background-color: greenyellow;
-    border: 2px solid darkgreen;
-}
-
-.btnregister {
-    background-color: rgb(51, 217, 247);
-    border: 2px solid #0091b1;
-}
-
-
-.footer {
-    background-color: #F1F1F1;
-    text-align: bottom;
-    padding: 10px;
-    border-top: 2px solid #ccc;
-}
-
-
-h1 {
-    text-align: center;
-    color: darkblue;
-    margin-bottom: 20px;
-}
-
 
 fieldset {
-    border: 2px solid #ccc;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    border: none;
+    margin-bottom: 15px;
+}
+
+legend {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"], input[type="reset"], button {
+    background-color: #31a7c5;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
+    background-color: #0ed5f0;
+}
+
+.error {
+    color: red;
+    font-size: 0.9rem;
+}
+
+h1 {
+    margin: 20px 0;
+}
+
+label {
+    font-weight: bold;
+}
+
+
+button {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 16px;
+}
+
+input[type="submit"], input[type="reset"] {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 16px;
 }
