@@ -74,11 +74,5 @@ function deleteEmployee($conn, $id) {
     $stmt->close();
 }
 
-// Example usage (Uncomment as needed)
-// createEmployee($conn, "John Doe", "john.doe@example.com", "Developer");
-// readEmployees($conn);
-// updateEmployee($conn, 1, "Jane Doe", "jane.doe@example.com", "Manager");
-// deleteEmployee($conn, 1);
-
 $conn->close();
 ?>

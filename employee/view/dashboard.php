@@ -34,10 +34,10 @@ $conn->close();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>Welcome, <span id="userName"><?php echo htmlspecialchars($user['e_name']); ?></span>!</h1>
-    <p>Your email: <span id="userEmail"><?php echo htmlspecialchars($user['e_email']); ?></span></p>
-    <p>Your phone: <span id="userPhone"><?php echo htmlspecialchars($user['e_phone']); ?></span></p>
-    <p>Your department: <?php echo htmlspecialchars($user['e_department']); ?></p>
+    <h1>Welcome, <span id="userName"><?php echo ($user['e_name']); ?></span>!</h1>
+    <p>Your email: <span id="userEmail"><?php echo ($user['e_email']); ?></span></p>
+    <p>Your phone: <span id="userPhone"><?php echo ($user['e_phone']); ?></span></p>
+    <p>Your department: <?php echo ($user['e_department']); ?></p>
     
     <form action="products.php" method="get">
         <button type="submit">Products</button>
@@ -47,11 +47,11 @@ $conn->close();
     <form id="updateForm">
         <input type="hidden" name="action" value="update">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['e_name']); ?>" required><br>
+        <input type="text" id="name" name="name" value="<?php echo ($user['e_name']); ?>" required><br>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['e_email']); ?>" required><br>
+        <input type="email" id="email" name="email" value="<?php echo ($user['e_email']); ?>" required><br>
         <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($user['e_phone']); ?>" required><br>
+        <input type="text" id="phone" name="phone" value="<?php echo ($user['e_phone']); ?>" required><br>
         <input type="submit" value="Update Information">
     </form>
 
