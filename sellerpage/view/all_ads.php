@@ -73,6 +73,6 @@ $conn->close();
     <?php endif; ?>
     <a href="profile.php" class="logout-btn">Back to Profile</a>
 </div>
-<script src="../sellerpage/js/myjs.js"></script>
+<script src="../../../sellerpage/js/myjs.js"></script>
 </body>
 </html>

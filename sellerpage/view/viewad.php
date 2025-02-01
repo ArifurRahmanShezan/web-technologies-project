@@ -60,7 +60,6 @@ $conn->close();
         <p class="ad-price">Tk <?php echo number_format((float)$ad["p_price"]); ?></p>
         <div class="ad-description">
             <h2>Description</h2>
-         
         </div>
         <a href="all_ads.php" class="back-link">Back to All Ads</a>
     </div>

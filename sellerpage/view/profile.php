@@ -45,8 +45,9 @@ $myDB->closeCon($connectionObject);
         </div>
        
         <div class="profile-actions">
-            <a href="all_ads.php" class="btn-ads">All Ads</a>
+            <a href="all_ads.php" class="btn-ads">All ADs</a>
             <a href="post_ad.php" class="btn-post-ad">POST FREE AD</a>
+            <a href ="../../view/showusers.php"class="btn-post-ad">UPDATE USERs</a>
         </div>
     </div>
     <div class="profile-container">
