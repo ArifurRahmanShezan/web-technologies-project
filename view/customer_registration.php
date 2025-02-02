@@ -41,19 +41,19 @@ require '../control/reg_control.php';
                     </tr>
                     <tr>
                          <td>Gender</td>
-                        <td>
-                            <label>
-                                <input type="radio" name="gender" id="gender" value="male"> Male
-                            </label>
-                            <label>
-                                <input type="radio" name="gender" id="gender" value="female"> Female
-                            </label>
-                            <label>
-                                <input type="radio" name="gender" id="gender" value="others"> Others
-                            </label>
-                            <span id="genderError"></span>
-                        </td>
-                                            </tr>
+                         <td>
+    <label>
+        <input type="radio" name="gender" value="male"> Male
+    </label>
+    <label>
+        <input type="radio" name="gender" value="female"> Female
+    </label>
+    <label>
+        <input type="radio" name="gender" value="others"> Others
+    </label>
+    <span id="genderError"></span>
+</td>
+                    </tr>
                     <tr>
                         <td>Profile Picture</td>
                         <td><input type="file" name="profile_picture"></td>
